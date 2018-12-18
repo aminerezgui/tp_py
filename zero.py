@@ -1,6 +1,7 @@
 import math
 import cmath
 import numpy as np
+import matplotlib.pyplot as plt
 
 def f(x):
         return math.exp(-1 * x) - x
@@ -63,3 +64,14 @@ def racinec(x0, x = 1, n = 3):
                 return n * y**(n - 1)
         return newton1d(f, df, x0 , 1.e-10, 1000)
 
+def graph(nb):
+    x = np.linspace(-3, 3, nb)
+    X, Y = np.meshgrid(x, x)
+    Z = X + 1j * Y
+    n = np.shape(Z)
+    W = np.zeros(n, dtype = int)
+    for i in range(n[0]):
+        for k in range(n[1]):
+            W[i][k] = cmath.phase(racinec(Z[i][k]))
+    plt.pcolor(X, Y, W)
+    plt.show()
